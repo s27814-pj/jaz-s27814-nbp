@@ -23,7 +23,8 @@ public class RestController {
     @Operation(summary = "Podaje srednia wartosc waluty dla dat", description = "Podaje srednia wartosc podanej waluty (w tabeli a od w api nbp) dla podanych dat dla ktorych sa dostepne dane api nbp dla liczby dni mniejszej niz 367")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "zwraca srednia wartosc (double)"),
-            @ApiResponse(responseCode = "400", description = "niepoprawna skladnia, np brak ISO4217, dni ponad limit, lub blednie data lub inne bad request")
+            @ApiResponse(responseCode = "400", description = "niepoprawna skladnia,, dni ponad limit, daty na odwrot lub inne bad request"),
+            @ApiResponse(responseCode = "404", description = "nie znaleziono danych, moze brak waluty w ISO 4217")
     })
     @GetMapping("/{currency}/{start}/{end}")
     public ResponseEntity<Double> calculateAverageBetweenDates(@PathVariable(required = true) @Parameter(description = "waluta wedug standardu ISO 4217", example = "EUR") String currency ,

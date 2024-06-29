@@ -11,9 +11,14 @@ import java.util.NoSuchElementException;
 public class RestControllerAdvice {
 
 
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleBadDate(java.time.format.DateTimeParseException exception){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
     @ExceptionHandler
     public ResponseEntity<String> handleHttpClientErrorException$NotFound(HttpClientErrorException.NotFound exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
     @ExceptionHandler
