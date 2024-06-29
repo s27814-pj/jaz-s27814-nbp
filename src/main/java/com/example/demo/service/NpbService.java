@@ -19,11 +19,10 @@ public class NpbService {
     }
 
 
-    public Long calculateAverageBetweenDates(String currency, LocalDate startDate, LocalDate endDate){
+    public double calculateAverageBetweenDates(String currency, LocalDate startDate, LocalDate endDate){
         RestTemplate restTemplate = new RestTemplate();
-        Root root = restTemplate.getForObject("https://api.nbp.pl/api/exchangerates/rates/a/gbp/2012-01-01/2012-01-31/?format=json", Root.class);
-        System.out.println(root.getCurrency());
-        System.out.println(root.getRates().get(1).getMid());
+       Root root = restTemplate.getForObject("https://api.nbp.pl/api/exchangerates/rates/a/"+ currency+"/"+startDate+"/"+endDate+"/?format=json", Root.class);
+//        System.out.println("https://api.nbp.pl/api/exchangerates/rates/a/"+ currency+"/"+startDate+"/"+endDate+"/?format=json");
         double avg =0f;
         for (int i=0; i<root.getRates().size()-1; i++){
             avg+=root.getRates().get(i).getMid();
@@ -31,7 +30,7 @@ public class NpbService {
         avg = avg / root.getRates().size();
         Currency tmp = new Currency(root.getCurrency(), startDate, endDate, LocalDateTime.now() ,avg);
         currencyRepository.save(tmp);
-        return 1L;
+        return avg;
     }
 
 

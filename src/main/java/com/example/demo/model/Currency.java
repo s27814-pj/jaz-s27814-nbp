@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,14 +10,19 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Entity
 public class Currency {
+    @Schema(name = "id wpisu w bazie", example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Schema(name = "nazwa waluty", example = "euro")
     private String currency;
+    @Schema(name = "data od kiedy sprawdzane dane", example = "2020-02-26")
     private LocalDate startDate;
+    @Schema(name = "data do kiedy sprawdzane dane", example = "2020-03-26")
     private LocalDate endDate;
+    @Schema(name = "data i czas kiedy wyslane zapytanie do api", example = "2020-03-26")
     private LocalDateTime queryDate;
-
+    @Schema(name = "srednia wartosc wyliczona z dostepnych danych od api miedzy datami startDate endDate", example = "5.55")
     private double value;
 
     public double getValue() {
