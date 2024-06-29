@@ -17,6 +17,24 @@ public class Currency {
     private LocalDate endDate;
     private LocalDateTime queryDate;
 
+    private double value;
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public Currency(String currency, LocalDate startDate, LocalDate endDate, LocalDateTime queryDate, double value) {
+        this.currency = currency;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.queryDate = queryDate;
+        this.value = value;
+    }
+
     public Long getId() {
         return id;
     }
